@@ -83,5 +83,16 @@ RSpec.describe Application, type: :model do
         expect(application_1.has_rejected_pets?).to be false
       end
     end
+
+    describe '#update_pets' do
+      it 'can update all pets of an application to false' do
+        expect(bella.adoptable).to be true
+        
+        application_1.update_pets
+
+        expect(bella.adoptable).to be false
+
+      end
+    end
   end
 end
