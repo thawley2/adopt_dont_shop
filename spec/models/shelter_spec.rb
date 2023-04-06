@@ -42,6 +42,26 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.order_by_number_of_pets).to eq([@shelter_1, @shelter_3, @shelter_2])
       end
     end
+
+    describe '#find_shelter_name' do
+      it 'returns a shelter by id in raw sql' do
+        shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        shelter3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+
+        expect(Shelter.find_shelter_name(shelter1.id)).to eq('Aurora shelter')
+        expect(Shelter.find_shelter_name(shelter3.id)).to eq('Fancy pets of Colorado')
+      end
+    end
+
+    describe '#find_shelter_address' do
+      it 'returns a shelter by id in raw sql' do
+        shelter1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
+        shelter3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
+
+        expect(Shelter.find_shelter_address(shelter1.id)).to eq('Aurora, CO')
+        expect(Shelter.find_shelter_address(shelter3.id)).to eq('Denver, CO')
+      end
+    end
   end
 
   describe 'instance methods' do

@@ -36,4 +36,12 @@ class Shelter < ApplicationRecord
   def self.with_pending_applications
     joins(:applications).where(applications: { status: 'Pending' }).distinct.pluck(:name)
   end
+
+  def self.find_shelter_name(id)
+    find_by_sql("SELECT name FROM shelters WHERE id = #{id}").first[:name]
+  end
+
+  def self.find_shelter_address(id)
+    find_by_sql("SELECT city FROM shelters WHERE id = #{id}").first[:city]
+  end
 end
